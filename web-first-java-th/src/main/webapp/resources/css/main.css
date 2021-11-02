@@ -1,0 +1,8 @@
+body {
+	margin: 20px;
+}
+
+.error{
+	font-style: italic !important;
+	color: red !important;
+} 

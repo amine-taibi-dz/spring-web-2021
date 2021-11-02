@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
+<head>
+    <meta charset="UTF-8">
+    <title>Home page</title>
+    <link rel="stylesheet" th:href="@{/webjars/Semantic-UI/semantic.css}">
+    <link  th:href="@{/static/css/main.css}"  rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="error">
+		Logged user: <span sec:authentication="name">Bob</span>
+	</div>
+	<h1>Error Page</h1>
+	<p>Application has encountered an error. Please contact support on ...</p>
+
+	
+	
+    <section class="ui container">
+    	<div> Failed URL: [[${url}]] Exception: [[${exception.message}]]</div>
+    
+	    <table calss="ui striped celled table">
+	      <tr>
+	        <th>Stack</th>        
+	      </tr>
+	      <tr th:each="ste : ${exception.stackTrace}">
+	        <td th:text="${ste}">STE</td>
+	      </tr>
+	    </table>
+    </section>
+
+	<br />
+	<br />
+	<a th:class="error" th:href="@{/logout}" href="/logout" >Logout</a>
+	<br/><br/>
+	<a  th:href="@{/index}"  href="/index">&lt;&lt; Retour</a>
+	
+	<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

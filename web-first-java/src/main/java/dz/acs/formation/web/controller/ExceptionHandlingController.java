@@ -9,10 +9,10 @@ import org.springframework.web.servlet.ModelAndView;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j2;
 
 @Controller
-@Log
+@Log4j2
 @Getter
 @Setter
 @NoArgsConstructor

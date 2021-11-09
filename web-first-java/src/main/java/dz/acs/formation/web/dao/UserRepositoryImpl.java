@@ -11,10 +11,10 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j2;
 
 @Data
-@Log
+@Log4j2
 @NoArgsConstructor
 @Repository
 @Getter

@@ -21,7 +21,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j2;
 /**
  * HomeController
  * @author ataibi
@@ -29,7 +29,7 @@ import lombok.extern.java.Log;
  */
 @Controller
 @RequestMapping("/formation")
-@Log
+@Log4j2
 @Getter
 @Setter
 @NoArgsConstructor
@@ -84,7 +84,7 @@ public class FormationController {
         if (result.hasErrors()) {
             return "new_projet";
         }
-        projetService.addProjet(projet);
+        projetService.nouveauProjet(projet);
         modelMap.addAttribute("projet", projet);
         
         return "redirect:/formation/projets";

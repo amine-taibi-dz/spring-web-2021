@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -15,9 +16,9 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j2;
 @Data
-@Log
+@Log4j2
 @NoArgsConstructor
 @Repository
 @Getter
@@ -39,9 +40,24 @@ public class ProjetRepositorylmpl implements ProjetRepository{
 	}
 
 	@Override
-	public boolean add(Projet projet) {
+	public Projet add(@NotNull Projet projet) {
 		entityManager.persist(projet);
-		return projet.getId()==null;
+		return projet;
+	}
+
+	@Override
+	public Projet findById(@NotNull Long id) {
+		Projet res = entityManager.find(Projet.class, id);
+		log.info(res!=null?res.toString():"No content");
+		return res;
+	}
+
+	@Override
+	public Long deleteById(@NotNull Long id) {
+		Projet prj = findById(id);
+		log.info("deleting projet : "+id);		
+		entityManager.remove(prj);
+		return id;
 	}
 
 }

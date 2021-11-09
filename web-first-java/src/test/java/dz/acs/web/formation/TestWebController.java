@@ -12,18 +12,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.web.FilterChainProxy;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import dz.acs.formation.web.controller.AccessController;
 /**
@@ -40,13 +35,13 @@ public class TestWebController  extends AbstractContextControllerTests{
 //	@Autowired
 //	private FilterChainProxy springSecurityFilterChain;
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
+//	@BeforeClass
+//	public static void setUpBeforeClass() throws Exception {
+//	}
+//
+//	@AfterClass
+//	public static void tearDownAfterClass() throws Exception {
+//	}
 
 	@Before
 	public void setup() {
@@ -58,7 +53,6 @@ public class TestWebController  extends AbstractContextControllerTests{
 	@Test
 	public void mockMvcNotNull() throws Exception {
 		assertNotNull(mockMvc);
-		
 	}
 	
 	@Test
@@ -74,7 +68,7 @@ public class TestWebController  extends AbstractContextControllerTests{
 	@Test
 	public void session1View() throws Exception {
 		/*.param("j_username", "admin").param("j_password", "password")*/
-		this.mockMvc.perform(get("/formation/session1"))
+		this.mockMvc.perform(get("/formation/session1")).andDo(print())
 				.andExpect(view().name(containsString("session")))
 				.andExpect(model().attribute("values", "1,2,3"))
 				.andExpect(model().size(1));
@@ -82,7 +76,7 @@ public class TestWebController  extends AbstractContextControllerTests{
 	
 	@Test
 	public void sessionView() throws Exception {
-		this.mockMvc.perform(get("/formation/session?nb=1001"))
+		this.mockMvc.perform(get("/formation/session?nb=1001")).andDo(print())
 				.andExpect(header().longValue("Number", 1001))
 				.andExpect(view().name(containsString("session")));
 	}

@@ -14,14 +14,14 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j2;
 /**
  * ProjetServiceImpl clazz
  * @author ataibi
  *
  */
 @Service
-@Log
+@Log4j2
 @Data
 @Getter
 @Setter
@@ -43,11 +43,29 @@ public class ProjetServiceImpl implements ProjetService {
 	@PreAuthorize("hasRole('ADMIN')")
 	@Transactional
 	@Override
-	public void addProjet(Projet projet) {
+	public Projet nouveauProjet(Projet projet) {
 		log.info("ProjetServiceImpl.addProjet...");
-		boolean res = projetRepository.add(projet);
+		Projet res = projetRepository.add(projet);
+		return res;
+	}
+
+
+	//@Secured("hasAnyRole()")
+	@Override
+	public Projet chercherParId(Long id) {
+		log.info("ProjetServiceImpl.chercherParId...");
+		Projet res = projetRepository.findById(id);
+		return res;
+	}
+
+	@PreAuthorize("hasRole('ADMIN')")
+	@Transactional
+	@Override
+	public Long supprimerParId(Long id) {
+		log.info("ProjetServiceImpl.supprimerParId...");
+		Long res =  projetRepository.deleteById(id);
 		
-		
+		return res;
 	}
 
 }

@@ -9,11 +9,13 @@ import org.springframework.stereotype.Service;
 import dz.acs.formation.web.dao.UserRepository;
 import dz.acs.formation.web.dto.MyUserPrincipal;
 import dz.acs.formation.web.model.User;
+import lombok.extern.log4j.Log4j2;
 /**
  * MyUserDetailsService
  * @author ataibi
  *
  */
+@Log4j2
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
@@ -22,6 +24,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
+    	log.info("loadUserByUsername"+username);
         User user = userRepository.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException(username);

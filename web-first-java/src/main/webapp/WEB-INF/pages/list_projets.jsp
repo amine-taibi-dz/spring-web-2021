@@ -10,6 +10,7 @@
 <head>
 <link href="<c:url value="/static/css/main.css" />" rel="stylesheet"
 	type="text/css" />
+	 <link rel="stylesheet" href="<spring:theme code='styleSheet'/>" type="text/css"/>
 <meta charset="ISO-8859-1">
 <title>Page de Projets</title>
 </head>
@@ -42,9 +43,12 @@
 		</c:forEach>
 	</table>
 	<br/><br/>
-	<a href="<c:url value="/logout" />">Logout</a>
+	<a href="<c:url value="/logout" />"><spring:message code="welcome.label.logout"/></a>
 	<br/><br/>
-	<a href="<c:url value="/index" />">&lt;&lt; Retour</a>
-
+	<a href="<c:url value='/index' />">&lt;&lt; <spring:message code="welcome.label.retour"/></a>
+	<br/>
+	<a href="<c:url value='/index?lang=en' />"> <spring:message code="label.en"/></a>
+	-
+	<a href="<c:url value='/index?lang=fr' />"> <spring:message code="label.fr"/></a>
 </body>
 </html>

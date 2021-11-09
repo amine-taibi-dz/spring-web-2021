@@ -5,13 +5,18 @@ import java.util.Locale;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.ui.context.ThemeSource;
+import org.springframework.ui.context.support.ResourceBundleThemeSource;
 import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.ThemeResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+import org.springframework.web.servlet.theme.CookieThemeResolver;
+import org.springframework.web.servlet.theme.ThemeChangeInterceptor;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
@@ -25,6 +30,22 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		source.setUseCodeAsDefaultMessage(true);
 		return source;
 	}
+	
+	
+	@Bean
+    public ThemeSource themeSource() {
+    	ResourceBundleThemeSource source = new ResourceBundleThemeSource();
+    	source.setBasenamePrefix("themes/");
+    	return source;
+    }
+    @Bean 
+    public ThemeResolver themeResolver(){
+    	CookieThemeResolver resolver = new CookieThemeResolver();
+    	resolver.setCookieMaxAge(2400);
+    	resolver.setCookieName("mythemecookie");
+    	resolver.setDefaultThemeName("theme1");
+    	return resolver;
+    }
 	
 	@Bean
 	public LocaleResolver localeResolver() {
@@ -40,8 +61,16 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	    return lci;
 	}
 	
-	public void addInterceptors(InterceptorRegistry registry) {
+	public void addInterceptors(InterceptorRegistry registry) {		
+   		registry.addInterceptor(themeChangeInterceptor());
 		registry.addInterceptor(localeChangeInterceptor());
+	}
+
+	@Bean
+	public ThemeChangeInterceptor themeChangeInterceptor() {
+		ThemeChangeInterceptor themeInterceptor = new ThemeChangeInterceptor();
+   		themeInterceptor.setParamName("mytheme");
+		return themeInterceptor;
 	}
 	@Bean
 	public ViewResolver viewResolver() {

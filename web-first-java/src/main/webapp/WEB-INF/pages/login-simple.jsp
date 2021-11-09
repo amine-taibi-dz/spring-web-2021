@@ -21,6 +21,8 @@
 		<input type="password" name="password" id="password" /> <br /> <br />
 		 
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		<p>rememberMe: <input type="checkbox" name="remember-me" value="true"></p>
+		
 		<input type="submit" value="Login" />
 
 	</form>

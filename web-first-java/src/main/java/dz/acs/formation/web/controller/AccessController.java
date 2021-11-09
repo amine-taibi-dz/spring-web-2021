@@ -7,22 +7,29 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import lombok.extern.java.Log;
+import dz.acs.formation.web.model.User;
+import lombok.extern.log4j.Log4j2;
+
+
 /**
  * AccessController 
  * @author ataibi
  *
  */
 @Controller
-@Log
+@Log4j2
 public class AccessController {
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String indexPage() {
+	public String indexPage(ModelMap mm) {
 		log.info("index page");
+		User user = new User();
+		user.setUsername("NULL");
+		mm.addAttribute("user", user);
 		return "welcome";
 	}
 	
@@ -41,5 +48,11 @@ public class AccessController {
 			new SecurityContextLogoutHandler().logout(request, response, auth);
 		}
 		return "redirect:/login?logout";
+	}
+	
+	@RequestMapping(value = "/denied", method = RequestMethod.GET)
+	public String deniedPage() {
+		log.info("denied page");
+		return "denied";
 	}
 }

@@ -1,7 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML5 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+   "http://www.w3.org/TR/html5/loose.dtd">
 
 <html>
 <head>
@@ -43,6 +43,13 @@
 									class="form-control form-control-lg" /> <label
 									class="form-label" for="typePasswordX">Password</label>
 							</div>
+							
+							<div class="form-check mb-2 form-white ">
+								<input type="checkbox" id="rememberMeid" value="true" name="remember-me"
+									class="form-check-input" /> <label
+									class="form-check-label" for="rememberMeid">Remember me</label>
+							</div>
+							
 							<input type="hidden" name="${_csrf.parameterName}"
 								value="${_csrf.token}" />
 

@@ -11,15 +11,38 @@
 	<artifactId>web-first-java</artifactId>
 	<version>0.0.1</version>
 	<packaging>war</packaging>
-	<name>web-first</name>
+	<name>web-first-java</name>
 	<description>web-first premier projet en spring webmvc java</description>
 
 	<dependencies>
 
 		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+
+		</dependency>
+		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
-			
+
 		</dependency>
 
 		<dependency>
@@ -159,11 +182,9 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>log4j-over-slf4j</artifactId>
 		</dependency>
-
-
-
-
-
-
 	</dependencies>
+	
+	<build>
+		<finalName>web-first-java</finalName>
+	</build>
 </project>

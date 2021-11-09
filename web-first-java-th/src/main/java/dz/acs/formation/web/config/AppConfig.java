@@ -2,7 +2,6 @@ package dz.acs.formation.web.config;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -97,6 +96,8 @@ public class AppConfig {
 		jpaTransactionManager.setDataSource(dataSource);
 		return jpaTransactionManager;		
 	}
+	
+	
 	
 	
 

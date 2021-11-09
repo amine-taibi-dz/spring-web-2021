@@ -1,5 +1,7 @@
 package dz.acs.formation.web.config;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,9 +14,13 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -22,8 +28,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
 	@Autowired
-	private UserDetailsService userDetailsService; 
+	private UserDetailsService userDetailsService;
 
+	@Bean("persistentTokenRepository")
+    public PersistentTokenRepository getPersistentTokenRepository(@Autowired DataSource dataSource) {
+        JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
+        jdbcTokenRepository.setDataSource(dataSource); // Data Source Injection
+        // from Security complete Token Table creation
+        //jdbcTokenRepository.setCreateTableOnStartup(true);
+        return jdbcTokenRepository;
+    }
+	
+	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers(HttpMethod.OPTIONS, "/api/v1/**");
@@ -59,6 +75,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Order(10)  
 	public static class FormLoginWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
         AuthenticationSuccessWithSessionHandler successHandler = new AuthenticationSuccessWithSessionHandler();
+        @Autowired
+		private UserDetailsService userDetailsService;
+        
+        @Autowired
+        private PersistentTokenRepository persistentTokenRepository;
+        
+        @Bean
+        public SessionRegistry sessionRegistry() {
+            return new SessionRegistryImpl();
+        }
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
@@ -81,6 +107,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     				.successHandler(successHandler)
     				.passwordParameter("password")
     				.usernameParameter("username")
+     		.and()
+        			.rememberMe()
+        				.userDetailsService(userDetailsService)
+        				.tokenRepository(persistentTokenRepository)
+        				.tokenValiditySeconds(10*24*60*60)  //10 jours
     		.and()
     			.logout()
     				.logoutUrl("/logout")
@@ -88,7 +119,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     				.logoutSuccessHandler(successHandler)
     		.and()
     			.exceptionHandling()
-    				.accessDeniedPage("/denied");
+    				.accessDeniedPage("/denied")
+    		.and()    		
+    			.sessionManagement()
+    				.maximumSessions(2)
+    				.expiredUrl("/login?expired")             
+    				.sessionRegistry(sessionRegistry());
     		
     		// @formatter:on
         }

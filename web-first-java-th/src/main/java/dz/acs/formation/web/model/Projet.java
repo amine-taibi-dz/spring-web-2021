@@ -42,11 +42,11 @@ public class Projet implements Serializable{
 	
 	private String repoName;
 	
-	@URL
-	
+	@URL	
 	private String url;
 	
 	private boolean visible;
-	
+    // conctactEmail
+	// conctactPhone
 	
 }

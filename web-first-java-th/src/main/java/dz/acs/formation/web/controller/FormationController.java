@@ -89,7 +89,8 @@ public class FormationController {
 	
 	@RequestMapping(value = "/projets/addProjet", method = RequestMethod.POST)
 	
-    public String addProjet(/*@ProjetValid*/ @Valid @ModelAttribute("projet") final Projet projet, final BindingResult result, final ModelMap modelMap ) {
+    public String addProjet(/*@ProjetValid*/ @Valid @ModelAttribute("projet") final Projet projet, 
+    		final BindingResult result, final ModelMap modelMap ) {
 		projetValidator.validate(projet, result);
         if (result.hasErrors()) {
             return "new_projet";

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Home page</title>
+    <link rel="stylesheet" th:href="@{/webjars/Semantic-UI/semantic.css}">
+    <link  th:href="@{/static/css/main.css}"  rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<h1>Erreur d'accès</h1>
+	<div class="error">
+		Logged user: <span sec:authentication="name">Bob</span>
+	</div>
+	<div th:text="#{label.erreur.acces(${session.username})}"></div>
+	<br /><br/>
+	<a  th:class="error" th:href="@{/logout}" href="/logout" >Logout</a>
+	<br/><br/>
+	<a  th:href="@{/index}"  href="/index">&lt;&lt; Retour</a>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="UTF-8">
+<title>Home page</title>
+<link rel="stylesheet" th:href="@{/webjars/Semantic-UI/semantic.css}">
+<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.0/css/bootstrap.min.css} "/>
+<link th:href="@{/static/css/main.css}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<h1 th:text="'Bonjour '+ ${session.username}">Bonjour</h1>
+	<div class="error">
+		Logged user: <span sec:authentication="name">Bob</span>
+	</div>
+	
+	<h1 th:text="#{label.new.projet.title}"></h1>
+	<div class="projet">
+		<form th:object="${projet}"
+			th:action="@{/formation/projets/addProjet}"
+			action="/formation/projets/addProjet" method="POST">
+			<div>
+				<div   class="form-group">
+					<p><label for="name" th:text="#{label.projet.name}">
+							Name <span class="man">*</span>
+
+					</label></p>
+					<p><input th:field="*{name}" name="name"
+						th:value="${projet.name}" /></p>
+   				 <p th:if="${#fields.hasErrors('name')}" th:errorclass="error" th:errors="*{name}" />
+						
+				</div>
+
+				<div  class="form-group">
+					<p><label for="repoName" th:text="#{label.projet.repoName}">repoName
+							<span class="man">*</span></label></p>
+					<p><input th:field="*{repoName}" name="repoName" th:value="${projet.repoName}" /></p>
+					<p th:if="${#fields.hasErrors('repoName')}" th:errorclass="error" th:errors="*{repoName}" />
+				</div>
+
+				<div  class="form-group">
+					<p><label for="url" th:text="#{label.projet.url}">URL:
+							<span class="url">*</span>
+
+					</label></p>
+					<p><input th:field="*{url}" name="url"
+						th:value="${projet.url}" /></p>
+						
+						<p th:if="${#fields.hasErrors('url')}" th:errorclass="error" th:errors="*{url}" />
+				</div>
+
+			
+				
+				<div class="form-group">
+		            <div class="custom-control custom-radio custom-control-inline">
+		                <input type="radio" id="option1" name="option1" class="custom-control-input" value="true" th:field="*{visible}">
+		                <label class="custom-control-label" for="option1">Publique</label>
+		            </div>
+		            <div class="custom-control custom-radio custom-control-inline">
+		                <input type="radio" id="option2" name="option2" class="custom-control-input" value="false" th:field="*{visible}">
+		                <label class="custom-control-label" for="option2">Privé</label>
+		            </div>		            
+		        </div>
+
+				<div>
+					<span><input th:value="#{command.save}" id="saveButton"
+						type="submit" ></span>
+					<span><input th:value="#{command.cancel}" id="cancelButton"
+						type="reset" ></span>
+
+				</div>
+
+
+			</div>
+		</form>
+	</div>
+	<br />
+	<a th:class="error" th:href="@{/logout}" href="/logout">Logout</a>
+	<br />
+	<br />
+	<a th:href="@{/index}" href="/index">&lt;&lt; Retour</a>
+	<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+</html>

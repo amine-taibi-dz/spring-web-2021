@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+<title>WebSocket Page</title>
+<link th:rel="stylesheet"
+	th:href="@{/webjars/bootstrap/5.0.0/css/bootstrap.min.css}" />
+<link th:rel="stylesheet"
+	th:href="@{/webjars/material-icons/1.7.1/css/material-icons.min.css}" />
+<link th:rel="stylesheet"
+	th:href="@{/webjars/material-icons/1.7.1/iconfont/material-icons.css}" />
+<link th:rel="stylesheet"
+	th:href="@{/webjars/materializecss/1.0.0/css/materialize.min.css}" />
+
+
+<link th:href="@{/static/css/main.css}" rel="stylesheet" type="text/css" />
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/webjars/materializecss/1.0.0/js/materialize.min.js}"></script>
+<script th:src="@{/static/js/jquery.leanModal.min.js}"></script>
+
+</head>
+<body>
+
+	<nav class="light-green lighten-1" role="navigation">
+		<div class="nav-wrapper container">
+			<a id="logo-container" href="#" class="brand-logo">Messages entre les amis ...</a>
+		</div>
+	</nav>
+	<div class="row center">
+		<div class="col s12">
+			<p id="users"></p>
+		</div>
+	</div>
+	
+	<div id="newMessageModal" class="container">
+
+		<div>
+			<form id="newMessageForm" action="new-message">
+				<div class="input-field col s12">
+					<i class="material-icons prefix">mode_edit</i>
+					<textarea id="messageText" name="message"
+						class="materialize-textarea"> </textarea>
+					<label for="message"></label>
+				</div>
+			</form>
+		</div>
+		<div>
+			<button id="sendMessageButton" class="btn waves-effect waves-light"
+				type="submit" name="action">
+				<i class="material-icons right">send</i>
+			</button>
+		</div>
+	</div>
+	<div id="messages">
+		<div class="row">
+			<div class="col s12">
+				<div class=" card grey-text">
+					<div class="card-content center">BLA BLA</div>
+				</div>
+			</div>
+		</div>
+
+
+
+	</div>
+
+
+	
+
+
+	<script type="text/javascript">
+
+			var ws;
+			$(document).ready(function(){
+				//$('.modal-trigger').leanModal();
+				$('#sendMessageButton').click(function(){
+					sendForm();
+					$('#messageText').val('');
+					//$('#newMessageModal').closeModal();
+							
+				});
+				ws = new WebSocket("ws://localhost:8080/web-first-java-th/api/wss/msg-handler");
+				//ws.onopen = function(){ ws.send('Starting .. '; }
+				ws.onmessage = function(event){
+					console.log("message : "+event.data);
+					$('#messages').prepend('<div class="row"><div class="col s12"><div class="card grey-text"><div class="card-content center"><p>'+event.data+'</p></div></div></div></div>');
+				}
+				//ws.onclose = function(event){console.log("complete : "+event.code);}
+
+		  });
+
+		function sendForm(){
+			ws.send($('#messageText').val())
+		}
+	</script>
+
+</body>
+</html>

@@ -3,6 +3,7 @@ package dz.acs.formation.web.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -50,7 +51,7 @@ public class ProjetServiceImpl implements ProjetService {
 	}
 
 
-	//@Secured("hasAnyRole()")
+	//@Secured("hasAnyRole('ADMIN','USER','REST')")
 	@Override
 	public Projet chercherParId(Long id) {
 		log.info("ProjetServiceImpl.chercherParId...");

@@ -14,11 +14,17 @@
 	<name>web-first-java-th-data</name>
 	<description>web-first-java-th premier projet en spring webmvc en
 		config java,
-		avec des page en thymeleaf spring security config, websocket avec sping
+		avec des page en thymeleaf spring security config,
+		websocket avec sping
 		data
 	</description>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-jpamodelgen</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.data</groupId>
@@ -151,7 +157,7 @@
 			<artifactId>javax.el</artifactId>
 
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
@@ -302,5 +308,19 @@
 
 	<build>
 		<finalName>web-first-java-th-data</finalName>
+<!-- 		<plugins> -->
+<!-- 			<plugin> -->
+<!-- 				<artifactId>maven-compiler-plugin</artifactId> -->
+<!-- 				<configuration> -->
+<!-- 					<source>11</source> -->
+<!-- 					<target>11</target> -->
+<!-- 					<compilerArguments> -->
+<!-- 						<processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor -->
+<!-- 						</processor> -->
+<!-- 					</compilerArguments> -->
+<!-- 				</configuration> -->
+<!-- 			</plugin> -->
+
+<!-- 		</plugins> -->
 	</build>
 </project>

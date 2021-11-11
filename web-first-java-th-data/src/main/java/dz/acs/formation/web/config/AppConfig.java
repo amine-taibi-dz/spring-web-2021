@@ -30,8 +30,11 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @PropertySource(value = {"classpath:/jdbc.properties","classpath:/app.properties"})
 @EnableTransactionManagement
 @EnableWebMvc
-@EnableJpaRepositories(basePackages = "dz.acs.formation.web",enableDefaultTransactions =true,
-entityManagerFactoryRef = "entityManagerFactory",transactionManagerRef = "tansactionManager" )
+@EnableJpaRepositories(
+		basePackages = "dz.acs.formation.web",
+		enableDefaultTransactions =true,
+		entityManagerFactoryRef = "entityManagerFactory",
+		transactionManagerRef = "tansactionManager" )
 public class AppConfig {
 
 	@Value("${jdbc.url}")

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
+<head>
+    <meta charset="UTF-8">
+    <title>Home page</title>
+    <link rel="stylesheet" th:href="@{/webjars/Semantic-UI/semantic.css}">
+    <link  th:href="@{/static/css/main.css}"  rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<c:url var="loginUrl" value="/login" />
+	<form action="${loginUrl}" method="post">
+		<label for="login">Username :</label> 
+		
+		<input type="text" name="username" id="username" /> <br /> <br /> 
+		
+		<label for="password">Password :</label>
+		<input type="password" name="password" id="password" /> <br /> <br />
+		 
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		<input type="submit" value="Login" />
+
+	</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

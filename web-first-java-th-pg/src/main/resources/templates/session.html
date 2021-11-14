@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Session page</title>
+    <link rel="stylesheet" th:href="@{/webjars/Semantic-UI/semantic.css}">
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.0/css/bootstrap.min.css}"/>
+    <link  th:href="@{/static/css/main.css}"  rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- 	th:if="${#authentication != null and #authentication.principal != null}" -->
+
+<div class="error" >
+		Logged user: <span sec:authentication="name">Bob</span>
+	</div>
+		
+	<h1 th:text="'Bonjour '+ ${session.username}"> Bonjour</h1>
+	<h3 th:text="'Credit '+ ${#response.getHeader('Number')} +' points'">
+	 	Crédit 1500 points
+	</h3>
+<!-- 	${#ctx.request} ${#ctx.response} ${#ctx.session} ${#ctx.servletContext} ${#locale}	 -->
+	<br/>
+	<a th:class="error" th:href="@{/logout}" href="/logout" >Logout</a>
+	<br/><br/>
+	<a  th:href="@{/index}"  href="/index">&lt;&lt; Retour</a>
+</body>
+</html>

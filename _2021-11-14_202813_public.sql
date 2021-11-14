@@ -1,13 +1,4 @@
-DROP TABLE IF EXISTS projet;
-CREATE TABLE projet(
-    id integer PRIMARY KEY,
-    create_time date,
-    update_time date,
-    name character varying,
-    reponame character varying,
-    url character varying,
-    visible bit
-);
+
 
 DROP TABLE IF EXISTS t_projets;
 CREATE TABLE t_projets(

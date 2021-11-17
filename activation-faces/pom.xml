@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>dz.acs.webflow</groupId>
+	<artifactId>activation-faces</artifactId>
+	<packaging>war</packaging>
+	<name>Activation: Spring Web Flow with JSF</name>
+	<version>1.0.0.BUILD-SNAPSHOT</version>
+	<!-- <parent> <groupId>org.springframework.webflow</groupId> <artifactId>spring-webflow-samples</artifactId> 
+		<version>1.0.0.BUILD-SNAPSHOT</version> </parent> -->
+	<properties>
+		<easymock.version>3.4</easymock.version>
+		<hsqldb.version>2.5.1</hsqldb.version>
+		<hibernate.version>5.4.28.Final</hibernate.version>
+		<hibernate-validator.version>6.2.0.Final</hibernate-validator.version>
+		<jaxb.version>2.2.3</jaxb.version>
+		<jetty-maven-plugin.version>9.4.38.v20210224
+		</jetty-maven-plugin.version>
+		<junit.version>4.13.2</junit.version>
+		<log4j.version>2.14.0</log4j.version>
+		<mojarra.version>2.2.20</mojarra.version>
+		<myfaces.version>2.3.8</myfaces.version>
+		<primefaces.version>8.0</primefaces.version>
+		<servlet.version>3.1.0</servlet.version>
+		<tiles.version>3.0.8</tiles.version>
+		<webflow.version>2.5.1.RELEASE</webflow.version>
+		<springframework.version>5.2.18.RELEASE</springframework.version>
+		<springframework.security.version>5.3.12.RELEASE</springframework.security.version>
+	</properties>
+
+
+
+
+	<dependencies>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework</groupId> -->
+<!-- 			<artifactId>spring-framework-bom</artifactId> -->
+<!-- 			<version>${springframework.version}</version> -->
+<!-- 			<type>pom</type> -->
+<!-- 			<scope>import</scope> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.security</groupId> -->
+<!-- 			<artifactId>spring-security-bom</artifactId> -->
+<!-- 			<type>pom</type> -->
+<!-- 			<scope>import</scope> -->
+<!-- 			<version>${springframework.security.version}</version> -->
+<!-- 		</dependency> -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.30</version>
+		</dependency>
+		<!-- Spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.webflow</groupId>
+			<artifactId>spring-faces</artifactId>
+			<version>${webflow.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${springframework.security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${springframework.security.version}</version>
+		</dependency>
+		<!-- Servlet -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${servlet.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- JSF implementation: Mojarra -->
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-api</artifactId>
+			<version>${mojarra.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-impl</artifactId>
+			<version>${mojarra.version}</version>
+		</dependency>
+		<!-- JSF implementation: MyFaces (also change DispatcherServletInitializer) 
+			<dependency> <groupId>org.apache.myfaces.core</groupId> <artifactId>myfaces-api</artifactId> 
+			<version>${myfaces.version}</version> </dependency> <dependency> <groupId>org.apache.myfaces.core</groupId> 
+			<artifactId>myfaces-impl</artifactId> <version>${myfaces.version}</version> 
+			</dependency> -->
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>${primefaces.version}</version>
+		</dependency>
+		<!-- Database, JPA -->
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>${hsqldb.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+		<!-- JSR 303 with Hibernate Validator -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>${hibernate-validator.version}</version>
+		</dependency>
+		<!-- JAXB2 -->
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>${jaxb.version}</version>
+		</dependency>
+		<!-- Logging -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-jul</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<!-- Test -->
+		<dependency>
+			<groupId>org.easymock</groupId>
+			<artifactId>easymock</artifactId>
+			<version>${easymock.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${springframework.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>activation-faces</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.1.0</version>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.7.0</version>
+				<configuration>
+					<source>11</source>
+					<target>11</target>
+				</configuration>
+			</plugin>
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
+<!-- 				<artifactId>maven-surefire-plugin</artifactId> -->
+<!-- 				<version>2.20.1</version> -->
+<!-- 				<configuration> -->
+<!-- 					<junitArtifactName>junit:junit</junitArtifactName> -->
+<!-- 					<includes> -->
+<!-- 						<include>**/*Tests.java</include> -->
+<!-- 					</includes> -->
+<!-- 				</configuration> -->
+<!-- 			</plugin> -->
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.eclipse.jetty</groupId> -->
+<!-- 				<artifactId>jetty-maven-plugin</artifactId> -->
+<!-- 				<version>${jetty-maven-plugin.version}</version> -->
+<!-- 				<configuration> -->
+<!-- 					<webApp> -->
+<!-- 						<contextPath>/${project.artifactId}</contextPath> -->
+<!-- 					</webApp> -->
+<!-- 				</configuration> -->
+<!-- 			</plugin> -->
+		</plugins>
+	</build>
+</project>

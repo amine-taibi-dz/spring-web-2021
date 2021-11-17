@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/webflow
+		https://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+	
+	<var name="user1" class="dz.acs.webflow.activation.UserMe"/> 
+	
+	<!-- 	<secured attributes="ROLE_USER" /> -->
+	<view-state id="activation">		
+		<transition on="ok" to="success"/>
+		<transition on="ko"  to="failure">
+ 		</transition>
+	</view-state>
+	
+	<view-state id="success">
+		<transition on="exit" to="exit" >			
+		</transition>
+	</view-state>
+	
+	<view-state id="failure">
+		<transition on="exit" to="exit" >
+		</transition>
+	</view-state>
+
+			
+	<end-state id="exit"  />
+	
+	
+	
+	
+
+</flow>

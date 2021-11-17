@@ -1,0 +1,20 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	    		xmlns:ui="http://java.sun.com/jsf/facelets"
+	  			xmlns:h="http://java.sun.com/jsf/html"
+	  			xmlns:f="http://java.sun.com/jsf/core"
+	  			xmlns:p="http://primefaces.org/ui"
+				template="/WEB-INF/layouts/standard.xhtml">
+<ui:define name="content">
+	<p:panel header="Activation wizard" toggleable="true" toggleSpeed="100">
+		<h:form >			
+			<h:panelGrid columns="2">				
+				<p:commandButton id="ok1" value="Confirm" action="ok" update="@form" />
+				<p:commandButton id="ko1" value="Cancel" action="ko" update="@form" />				
+			</h:panelGrid>			
+			<div>
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/></div>
+		</h:form>
+	</p:panel>
+</ui:define>
+</ui:composition>

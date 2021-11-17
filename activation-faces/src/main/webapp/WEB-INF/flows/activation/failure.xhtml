@@ -1,0 +1,19 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/layouts/standard.xhtml">
+	<ui:define name="content">
+		<H1>KOOOOOOO ??</H1>
+		<h:form>
+			<div>
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			</div>
+			<div>
+				<p:commandButton id="exit0" action="exit" value="Bye Bye" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

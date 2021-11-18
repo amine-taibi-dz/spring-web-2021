@@ -33,5 +33,13 @@ public interface ProjetRepository {
 	 */
 	Long deleteById(Long id);
 	
+	/**
+	 * Mise à jour du projet
+	 * @param pojet
+	 * @return Projet
+	 */
+	Projet update(Projet projet);
+	
+	
 
 }

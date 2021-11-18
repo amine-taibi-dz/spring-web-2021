@@ -22,7 +22,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
-
+	
 	@Bean
 	public ResourceBundleMessageSource messageSource() {
 		var source = new ResourceBundleMessageSource();
@@ -72,6 +72,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
    		themeInterceptor.setParamName("mytheme");
 		return themeInterceptor;
 	}
+
+	
 	@Bean
 	public ViewResolver viewResolver() {
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver("/WEB-INF/pages/", ".jsp");

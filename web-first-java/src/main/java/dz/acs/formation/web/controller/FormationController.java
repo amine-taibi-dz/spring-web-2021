@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -59,7 +60,11 @@ public class FormationController {
 		return "session";
 		
 	}
-	
+	/**
+	 * listProjet
+	 * @param mm
+	 * @return
+	 */
 	@RequestMapping("/projets")
 	public String listProjet(ModelMap mm) {
 		log.info("les projets");
@@ -69,6 +74,11 @@ public class FormationController {
 	}
 	
 
+	/**
+	 * 
+	 * @param mm
+	 * @return
+	 */
 	@RequestMapping(value = "/projets/addProjet", method = RequestMethod.GET)
 	public String viewAddPage(ModelMap mm) {
 		log.info("aller à la page addProjet");
@@ -76,10 +86,16 @@ public class FormationController {
 		mm.addAttribute("projet", projet);
 		return "new_projet";		
 	}
-	
-	@RequestMapping(value = "/projets/addProjet", method = RequestMethod.POST)
-	
-    public String addProjet(/*@ProjetValid*/ @Valid @ModelAttribute("projet") final Projet projet, final BindingResult result, final ModelMap modelMap ) {
+	/**
+	 * 
+	 * @param projet
+	 * @param result
+	 * @param modelMap
+	 * @return
+	 */
+	@RequestMapping(value = "/projets/addProjet", method = RequestMethod.POST)	
+    public String addProjet(/*@ProjetValid*/ @Valid @ModelAttribute("projet") final Projet projet, 
+    		final BindingResult result, final ModelMap modelMap ) {
 		projetValidator.validate(projet, result);
         if (result.hasErrors()) {
             return "new_projet";
@@ -89,4 +105,49 @@ public class FormationController {
         
         return "redirect:/formation/projets";
     }
+	/**
+	 * Affiche le formulaire pour modifier un projet
+	 * */
+	@RequestMapping(value = "/projets/updateProjet/{idProjet}", method = RequestMethod.GET)
+	public String viewUpdatePage(@PathVariable("idProjet") Long idProjet, ModelMap mm) {
+		log.info("aller à la page updateProjet");
+		Projet projet = projetService.chercherParId(idProjet);
+		mm.addAttribute("projet", projet);
+		return "update_projet";		
+	}
+	
+	/**
+	 * 
+	 * @param projet
+	 * @param result
+	 * @param modelMap
+	 * @return
+	 */
+	@RequestMapping(value = "/projets/updateProjet",method = RequestMethod.POST)
+	public String updateProjet(@ModelAttribute @Valid Projet projet,
+			final BindingResult result, final ModelMap modelMap) {
+		projetValidator.validate(projet, result);
+        if (result.hasErrors()) {
+            return "update_projet";
+        }
+        projet = projetService.mettreAjour(projet);
+        modelMap.addAttribute("projet", projet);
+		
+		return "redirect:/formation/projets";
+	}
+	
+	
+	/**
+	 * deleteProjetPage
+	 * @param idProjet
+	 * @param mm
+	 * @return aller à la liste
+	 */
+	@RequestMapping(value = "/projets/deleteProjet/{idProjet}", method = RequestMethod.GET)
+	public String deleteProjetPage(@PathVariable("idProjet") Long idProjet, ModelMap mm) {
+		log.info("aller à la page deleteProjetPage");
+		projetService.supprimerParId(idProjet);
+		return "redirect:/formation/projets";
+	}	
+	
 }

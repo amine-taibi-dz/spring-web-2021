@@ -22,7 +22,7 @@
 			<spring:argument  value="  "/>
 		</spring:message>
 	</h1>
-
+    
 	<table>
 		<!-- here should go some titles... -->
 		<tr>
@@ -31,6 +31,10 @@
 			<th>Répository</th>
 			<th>URL</th>
 			<th>Visible</th>
+			<sec:authorize access="hasRole('IT')">
+				<th>Actions</th>
+			</sec:authorize>
+			
 		</tr>
 		<c:forEach items="${projets}" var="prj">
 			<tr>
@@ -39,6 +43,14 @@
 				<td><c:out value="${prj.repoName}" /></td>
 				<td><c:out value="${prj.url}" /></td>
 				<td><c:out value="${prj.visible?'Oui':'Non'}" /></td>
+				<sec:authorize access="hasRole('IT')">
+
+					<td><a href= "<c:url value='/formation/projets/updateProjet/' />${prj.id}">Modifier</a> </td>
+					<td><a  class="delete" href= "<c:url value='/formation/projets/deleteProjet/' />${prj.id}">Supprimer</a> </td>				
+				</sec:authorize>
+			
+			
+				
 			</tr>
 		</c:forEach>
 	</table>
@@ -50,5 +62,9 @@
 	<a href="<c:url value='/index?lang=en' />"> <spring:message code="label.en"/></a>
 	-
 	<a href="<c:url value='/index?lang=fr' />"> <spring:message code="label.fr"/></a>
+<!-- 	<script type="text/javascript"> -->
+// 	   $(document).ready(function(){});
+
+<!-- 	</script> -->
 </body>
 </html>

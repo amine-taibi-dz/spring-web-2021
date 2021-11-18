@@ -16,11 +16,21 @@
 <title>Page de Projets</title>
 </head>
 <body>
-	<h1>Nouveau projet</h1>
+	<h1>Mise à jour projet</h1>
 	<div class="projet">		
-		<spring:url value="/formation/projets/addProjet" var="addUrl"/>			
-		<sf:form modelAttribute="projet" action="${addUrl}" method="POST">
+		<spring:url value="/formation/projets/updateProjet" var="updateUrl"/>			
+		<sf:form modelAttribute="projet" action="${updateUrl}" method="POST">
 			<table>
+			
+					<tr>
+					<th><label for="id"> <span class="man">*</span>
+							<spring:message code="label.projet.id" text="id"/> :
+							
+						</label>
+					</th>
+					<td><sf:input path="id" readonly="true" /> 
+					<sf:errors cssClass="error" path="id" /></td>
+				</tr>
 				<tr>
 					<th><label for="name"> <span class="man">*</span>
 							<spring:message code="label.projet.name" text="name"/> :

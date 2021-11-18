@@ -3,6 +3,7 @@ package dz.acs.formation.web.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -32,6 +33,7 @@ public class ProjetServiceImpl implements ProjetService {
 	@Autowired
 	private ProjetRepository projetRepository;
 	
+	@PreAuthorize("hasAnyRole('IT','ADMIN')")
 	@Override
 	public List<Projet> chargerProjets() {
 		log.info("ProjetServiceImpl.chargerProjets...");
@@ -40,7 +42,7 @@ public class ProjetServiceImpl implements ProjetService {
 	}
 	
 	
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('IT')")
 	@Transactional
 	@Override
 	public Projet nouveauProjet(Projet projet) {
@@ -50,7 +52,7 @@ public class ProjetServiceImpl implements ProjetService {
 	}
 
 
-	//@Secured("hasAnyRole()")
+	@PreAuthorize("hasAnyRole('IT','ADMIN')")
 	@Override
 	public Projet chercherParId(Long id) {
 		log.info("ProjetServiceImpl.chercherParId...");
@@ -58,13 +60,22 @@ public class ProjetServiceImpl implements ProjetService {
 		return res;
 	}
 
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('IT')")
 	@Transactional
 	@Override
 	public Long supprimerParId(Long id) {
 		log.info("ProjetServiceImpl.supprimerParId...");
 		Long res =  projetRepository.deleteById(id);
-		
+		return res;
+	}
+
+	//@PreAuthorize("hasRole('IT')")
+	@Secured("ROLE_IT")
+	@Transactional
+	@Override
+	public Projet mettreAjour(Projet projet) {
+		log.info("ProjetServiceImpl.mettreAjour...");
+		Projet res =  projetRepository.update(projet);
 		return res;
 	}
 

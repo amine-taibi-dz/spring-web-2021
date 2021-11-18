@@ -27,6 +27,7 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 @EnableGlobalMethodSecurity(securedEnabled = true,prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
+	
 	@Autowired
 	private UserDetailsService userDetailsService;
 
@@ -92,7 +93,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     		.authorizeRequests()
     			.antMatchers("/login").permitAll()
     			.antMatchers("/logout").permitAll()
-    			.antMatchers("/formation/projets/**").hasRole("ADMIN")
+    			.antMatchers("/formation/projets/addProjet").hasRole("IT")
+    			.antMatchers("/formation/projets/deleteProjet").hasRole("IT")
+    			.antMatchers("/formation/projets/updateProjet").hasRole("IT")
+    			.antMatchers("/formation/projets/**").hasAnyRole("IT,ADMIN")
     			.antMatchers("/formation/session/**").hasRole("USER")
     			.antMatchers("/formation/**").authenticated()
     			.antMatchers("/**").permitAll()

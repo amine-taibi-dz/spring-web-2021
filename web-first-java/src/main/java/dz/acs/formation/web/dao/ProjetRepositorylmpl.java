@@ -55,9 +55,19 @@ public class ProjetRepositorylmpl implements ProjetRepository{
 	@Override
 	public Long deleteById(@NotNull Long id) {
 		Projet prj = findById(id);
-		log.info("deleting projet : "+id);		
-		entityManager.remove(prj);
+		log.info("deleting projet : "+id);
+		if(prj!=null &&prj.getId()!=null) {
+			entityManager.remove(prj);	
+		}
 		return id;
+	}
+
+	@Override
+	public Projet update(Projet projet) {
+		Projet res = null;
+		log.info("Mise à jour du projet : "+projet);
+		res = entityManager.merge(projet);
+		return res ;
 	}
 
 }

@@ -31,4 +31,11 @@ public interface ProjetService {
 	 * @return id supprimer
 	 */
 	Long supprimerParId(Long id);
+	
+	/**
+	 * mise à jour
+	 * @param projet
+	 * @return Projet
+	 */
+	Projet mettreAjour(Projet projet);
 }
